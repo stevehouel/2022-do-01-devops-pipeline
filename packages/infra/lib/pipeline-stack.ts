@@ -38,7 +38,14 @@ export class PipelineStack extends Stack {
 
     for(const stage of props.stages) {
       const infraStage = new InfraStage(this, stage.name, stage);
-      pipeline.addStage(infraStage);
+      pipeline.addStage(infraStage, {
+        post: [
+          new ShellStep('lbaddr', {
+            envFromCfnOutputs: {lb_addr: infraStage.loadbalancerAddress},
+            commands: ['make test-integration $lb_addr']
+          })
+        ]
+      });
     }
   }
 }

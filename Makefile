@@ -16,6 +16,9 @@ synth:
 	@cd packages/infra && \
 	yarn cdk synth -a bin/infra.js
 
+test-integration:
+	@curl -Ssf $(ARGS)
+
 deploy:
 	@yarn bootstrap
 	@yarn build
