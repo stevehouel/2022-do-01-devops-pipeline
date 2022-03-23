@@ -31,12 +31,14 @@ export class PipelineStack extends Stack {
           'make install',
           'make build',
           'make synth'
-        ]
-      })
+        ],
+        primaryOutputDirectory: 'packages/infra/cdk.out'
+      }),
     });
 
     for(const stage of props.stages) {
-      const infra = new InfraStage(this, stage.name, stage);
+      const infraStage = new InfraStage(this, stage.name, stage);
+      pipeline.addStage(infraStage);
     }
   }
 }

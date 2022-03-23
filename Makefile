@@ -3,7 +3,7 @@ SHELL:=/bin/bash
 .DEFAULT_GOAL := install
 .PHONY: bootstrap
 
-export REGION ?= eu-west-1
+export REGION ?= eu-west-3
 
 install:
 	yarn install --frozen-lockfile

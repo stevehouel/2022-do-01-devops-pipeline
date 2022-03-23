@@ -11,7 +11,7 @@ const app = new cdk.App();
 new PipelineStack(app, 'QuickstartContainerPipelineStack', {
   repositoryName: 'stevehouel/2022-do-01-devops-pipeline',
   branchName: 'master',
-  connectionArn: 'arn:aws:codestar-connections:eu-west-1:653738050483:connection/b90f8f6b-016c-43b7-bee8-3623264daf58',
+  connectionArn: 'arn:aws:codestar-connections:eu-west-3:653738050483:connection/24aa1d43-208d-4708-8c99-ab3925169db1',
   selfMutating: true,
   env: {
     region: REGION
