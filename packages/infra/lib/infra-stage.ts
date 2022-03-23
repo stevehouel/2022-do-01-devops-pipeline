@@ -8,15 +8,16 @@ export interface InfraStageProps extends StageProps {
 
 export class InfraStage extends Stage {
 
-    public loadbalancerAddress : CfnOutput;
+    public loadbalancerAddress: CfnOutput;
 
     constructor(scope: Construct, id: string, props: InfraStageProps) {
         super(scope, id, props);
 
         const webserverStack = new WebserverStack(this, 'WebserverStack', {});
 
-        this.loadbalancerAddress = new CfnOutput(webserverStack, 'lbaddr', {
+        this.loadbalancerAddress = new CfnOutput(webserverStack, 'LbAddr', {
             value: `http://${webserverStack.service.loadBalancer.loadBalancerDnsName}/`
         })
+
     }
 }
