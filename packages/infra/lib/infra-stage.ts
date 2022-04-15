@@ -16,7 +16,7 @@ export class InfraStage extends Stage {
         const webserverStack = new WebserverStack(this, 'WebserverStack', {});
 
         this.loadbalancerAddress = new CfnOutput(webserverStack, 'LbAddr', {
-            value: `http://${webserverStack.service.loadBalancer.loadBalancerDnsName}/`
+            value: `http://${webserverStack.loadbalancedService.loadBalancer.loadBalancerDnsName}/`
         })
 
     }
