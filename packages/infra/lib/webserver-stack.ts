@@ -5,18 +5,31 @@ import { Construct } from "constructs";
 
 export class WebserverStack extends Stack {
 
-    public service: ApplicationLoadBalancedFargateService;
+    public loadbalancedService: ApplicationLoadBalancedFargateService;
 
     constructor(scope: Construct, id: string, props: StackProps) {
         super(scope, id, props);
 
-        this.service = new ApplicationLoadBalancedFargateService(this, 'Service', {
+        this.loadbalancedService = new ApplicationLoadBalancedFargateService(this, 'Service', {
             memoryLimitMiB: 1024,
             cpu: 512,
             taskImageOptions: {
-                image: ContainerImage.fromRegistry('nginx:latest'),
+                image: ContainerImage.fromRegistry('amazon/amazon-ecs-sample'),
             },
-            desiredCount: 1
+            desiredCount: 2
+        });
+
+        const scalableTarget = this.loadbalancedService.service.autoScaleTaskCount({
+            minCapacity: 1,
+            maxCapacity: 20,
+        });
+        
+        scalableTarget.scaleOnCpuUtilization('CpuScaling', {
+            targetUtilizationPercent: 50,
+        });
+        
+        scalableTarget.scaleOnMemoryUtilization('MemoryScaling', {
+            targetUtilizationPercent: 50,
         });
     }
 }
