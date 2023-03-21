@@ -16,9 +16,13 @@ Actions:
         - WorkflowSource
     Configuration:
       Steps:
-        - name: Hello_world_action
-          uses: actions/hello-world-javascript-action@v1.1
+        - name: Build
+          uses: actions/setup-node@v3
           with:
-            who-to-greet: Mona the Octocat
+            node-version: 16
+          run: |-
+            npm install
+            npm run build
+            npm run test
     Compute:
       Type: EC2
