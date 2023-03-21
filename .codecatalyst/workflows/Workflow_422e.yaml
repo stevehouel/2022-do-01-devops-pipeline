@@ -1,4 +1,4 @@
-Name: Workflow_422e
+Name: onPushBuildAndTest
 SchemaVersion: "1.0"
 
 # Optional - Set automatic triggers.
